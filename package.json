@@ -1,6 +1,6 @@
 {
   "name": "express-curryer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Curried Express middleware",
   "main": "dist/index.js",
   "scripts": {
