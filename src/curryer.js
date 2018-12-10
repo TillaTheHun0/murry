@@ -13,7 +13,7 @@ const curryer = curry((errorHandler, extractor, responder, controller) => {
       responder(req, res, next)(data)
       return data
     } catch (err) {
-      errorHandler(err)
+      errorHandler(req, res, next)(err)
     }
   }
 })
