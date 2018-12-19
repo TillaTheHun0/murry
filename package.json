@@ -1,7 +1,7 @@
 {
-  "name": "express-curryer",
-  "version": "0.0.2",
-  "description": "Curried Express middleware",
+  "name": "murry",
+  "version": "0.0.1",
+  "description": "Separate controller and router with curried marshalling",
   "main": "dist/index.js",
   "scripts": {
     "build:dev": "npm run build -- -s",
@@ -15,7 +15,6 @@
   "author": "Tyler Hall",
   "license": "MIT",
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
