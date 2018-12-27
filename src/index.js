@@ -1,4 +1,6 @@
 
+import '@babel/polyfill'
+
 import { __ } from 'ramda'
 
 import { curryer } from './curryer'

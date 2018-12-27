@@ -1,7 +1,7 @@
 
 import { curry } from 'ramda'
 
-const curryer = curry(
+export const curryer = curry(
   (errorHandler, extractor, responder, controller) =>
     async (...args) => {
       try {
@@ -21,7 +21,3 @@ const curryer = curry(
       }
     }
 )
-
-module.exports = {
-  curryer
-}
