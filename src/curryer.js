@@ -3,10 +3,10 @@ import { curry } from 'ramda'
 
 const curryer = curry(
   (errorHandler, extractor, responder, controller) =>
-    async (req, res, next) => {
+    async (...args) => {
       try {
         // extract the payload from the req
-        let payload = extractor(req)
+        let payload = extractor(...args)
 
         if (!Array.isArray(payload)) {
           throw new Error('Payload from extractor must be an array of arguments to spread into the controller')
@@ -14,10 +14,10 @@ const curryer = curry(
 
         // call the controller method providing the payload
         let data = await controller(...payload)
-        responder(req, res, next)(data)
+        responder(...args)(data)
         return data
       } catch (err) {
-        errorHandler(req, res, next)(err)
+        errorHandler(...args)(err)
       }
     }
 )

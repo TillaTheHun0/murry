@@ -15,24 +15,24 @@ const { paramExtractor, bodyExtractor, queryExtractor } = extractors
 const defaultCurryer = curryer(passthroughHandler)
 
 // default json response
-const defaultJsonRescurryer = defaultCurryer(__, jsonRes)
+const defaultJsonResCurryer = defaultCurryer(__, jsonRes)
 
 // extracts params and body from request and json response
-const postCurryer = defaultJsonRescurryer(req => {
+const postCurryer = defaultJsonResCurryer(req => {
   let params = paramExtractor(req)
   let body = bodyExtractor(req)
   return { params, body }
 })
 
 // extracts params and body from request and json response
-const putCurryer = defaultJsonRescurryer(req => {
+const putCurryer = defaultJsonResCurryer(req => {
   let params = paramExtractor(req)
   let body = bodyExtractor(req)
   return { params, body }
 })
 
 // extracts params and query from request and json response
-const getCurryer = defaultJsonRescurryer(req => {
+const getCurryer = defaultJsonResCurryer(req => {
   let query = queryExtractor(req)
   let params = paramExtractor(req)
   return { query, params }
