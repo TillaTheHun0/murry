@@ -149,6 +149,7 @@ Then you can pass in the errorHandler later. This also means arguments passed to
 
 - Plugin system for web-server libraries to make `Murry` work out of the box with less boilerplate
 - Better docs
+- Library specific tests ie. Express, Hapi, Restify, etc.
 
 ## Contribute
 
