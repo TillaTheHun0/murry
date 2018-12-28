@@ -1,6 +1,6 @@
 {
   "name": "murry",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Separate controller and router with curried marshalling",
   "main": "dist/index.js",
   "scripts": {
