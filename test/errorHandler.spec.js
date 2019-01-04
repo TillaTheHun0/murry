@@ -11,7 +11,7 @@ describe('errorHandler', () => {
       nextCalled = true
     }
 
-    passthroughHandler(...[null, null, next])()
+    passthroughHandler()(...[null, null, next])
     expect(nextCalled).to.equal(true)
   })
 })

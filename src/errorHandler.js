@@ -1,6 +1,5 @@
 
-const passthroughHandler = (req, res, next) =>
-  err => next(err)
+const passthroughHandler = err => (req, res, next) => next(err)
 
 export {
   passthroughHandler

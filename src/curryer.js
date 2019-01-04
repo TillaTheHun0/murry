@@ -14,10 +14,10 @@ export const curryer = curry(
 
         // call the controller method providing the payload
         let data = await controller(...payload)
-        responder(...args)(data)
+        responder(data)(...args)
         return data
       } catch (err) {
-        errorHandler(...args)(err)
+        errorHandler(err)(...args)
       }
     }
 )
