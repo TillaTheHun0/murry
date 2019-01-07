@@ -118,7 +118,7 @@ router.post('/api/asset/:id', mySweetMiddleware(), postRequestJsonResponse(async
 }))
 ```
 
-In the example above, notice that the constructor has **no** specific logic for handling request objects, or responding to the client, or handling errors. It just returns a `Promise`. You've already set all of that handling up in your `Murryer`! This controller is now encapsulated and kept separate from the web-server library. This makes it **very** easy to unit test without mocking objects for that particular framework that you use.
+In the example above, notice that the controller function has **no** specific logic for handling request objects, or responding to the client, or handling errors. It just returns a `Promise`. You've already set all of that handling up in your `Murryer`! This controller is now encapsulated and kept separate from the web-server library. This makes it **very** easy to unit test without mocking objects for that particular framework that you use.
 
 Decide you want to a different web-server library, say `Restify`, instead of `ExpressJS`? No problem! Just adjust the `Murryer` to extract and repsond w.r.t the new library and your controllers and tests **just work**!
 
@@ -147,7 +147,7 @@ Then you can pass in the errorHandler later. This also means arguments passed to
 
 ## TODO
 
-- Plugin system for web-server libraries to make `Murry` work out of the box with less boilerplate
+- Plugin system for web-server libraries to make `murry` work out of the box with less boilerplate
 - Better docs
 - Library specific tests ie. Express, Hapi, Restify, etc.
 
@@ -159,5 +159,5 @@ Submit an issue or a PR
 MIT
 
 ## Name
-"Marshall + Curry" => "Murry". `Murryer` also rhymes with `Courier` which _sort of_ aligns with the use case for `Murryer` :)
+"Marshall + Curry" => "Murry". `Murryer` also rhymes with `Courier` which _sort of_ aligns with the use case for `murry` :)
 
