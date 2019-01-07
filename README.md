@@ -85,8 +85,8 @@ import { curryer } from 'murry'
  * Just call next() and pass it an error argument, which tells Express that an error has occurred
  * and immediatley skips all middleware until the error handling middleware
  **/
-const errorHandler = (req, res, next) =>
-  err => next(err)
+const errorHandler = err =>
+  (req, res, next) => next(err)
 
 // We only pass in our error handler to the curryer
 const defaultMurryer = curryer(errorHandler)
@@ -101,8 +101,8 @@ const postReqMurryer = defaultMurryer((req, res, next) => [req.params, req.body]
 const deleteReqMurryer = defaultMurryer((req, res, next) => [req.params]) // extract just the url params
 
 // Now use those murryers for even more variants!
-const postReqJsonResMurryer = postReqMurryer((req, res, next) => data => res.json(data))
-const postReqStatusResMurryer= postReqMurryer((req, res, next) => () => res.sendStatus(203))
+const postReqJsonResMurryer = postReqMurryer(data => (req, res, next) =>  res.json(data))
+const postReqStatusResMurryer= postReqMurryer(() => (req, res, next) => res.sendStatus(203))
 // ... so on
 
 // =========================================
