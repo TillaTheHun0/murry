@@ -63,13 +63,13 @@ function murryer (errorHandler, extractor, responder, controller) {
 ```
 
 Lets go through each argument
-- `errorHandler` Function<Function (err: Error)>(...args): a function that itself returns a function that handles any errors that arise while handling a request
-- `extractor` Function<Array>(...args): function that extracts the data we want from `args` and returns them as an **Array** these are passed into the controller function
-- `responder` Function<Function>(...args): function that itself returns a function that handles responding to the request using the data that resolves from the promise returned from the controller call
-- `controller` Function<Promise>(...args): function that returns a promise. What is resolved from the promise returned from the controller will be passed to the responder
+- `errorHandler` Function<Function (...args)>(err: Error): a function that itself returns a function that handles any errors that arise while handling a request
+- `extractor` Function<Array>(...args): a function that extracts the data we want from `args` and returns them as an **Array**. These values are **spread** into the controller function
+- `responder` Function<Function<>>(...args): a function that itself returns a function that handles responding to the request using the data returned from the controller call
+- `controller` Function<Promise>(...args): a function that returns a promise. What is resolved from the promise returned from the controller will be passed to the responder
 
 
-`args` is provided by whatever web-server library you use. Since the function is curried, we can pass any number of these arguments and then use _those_ new functions to create any number of flows. This composability compounds for each argument! Utilizing the currying capabilities, you can set up defaults for all or a subset of your `murryers`.
+`args` are the arguments provided by whatever web-server library you are using. Since the function is curried, we can pass any number of these arguments and then use _those_ new functions to compose distinct flows. This composability compounds for each argument! Utilizing the currying capabilities, you can set up defaults for all or a subset of your `murryers`.
 
 `Murry` has a _tiny_ footprint; It's just a couple functions and some sensisble prebuilt default extractors, responders, and errorHandlers for `ExpressJS`
 
@@ -97,10 +97,10 @@ const defaultMurryer = curryer(errorHandler)
  * Extractors always need to return an array.
  **/
 const getReqMurryer = defaultMurryer((req, res, next) => [req.params, req.query]) // extract the url params and query string
-const postReqMurryer = defaultMurryer((req, res, next) => [req.params, req.body]) // extract the url params and the body
+const postReqMurryer = defaultMurryer((req, res, next) => [req.body]) // extract the body
 const deleteReqMurryer = defaultMurryer((req, res, next) => [req.params]) // extract just the url params
 
-// Now use those murryers for even more variants!
+// Now use those murryers for even more flow!
 const postReqJsonResMurryer = postReqMurryer(data => (req, res, next) =>  res.json(data))
 const postReqStatusResMurryer= postReqMurryer(() => (req, res, next) => res.sendStatus(203))
 // ... so on
@@ -110,17 +110,31 @@ const postReqStatusResMurryer= postReqMurryer(() => (req, res, next) => res.send
 // Then on a endpoint route somewhere...
 import { postReqJsonResMurryer } from '../my.murryers'
 
-router.post('/api/asset/:id', mySweetMiddleware(), postRequestJsonResponse(async (body) => {
+/**
+ * a controller function that is given the spread values provided by the extractor
+ * 
+ * It just returns a promise
+ */
+const controller = async body => {
   body.type = 'foo'
   // whatever else we do with it
   // post the new asset to the database!
   return { id: 1, ...body } // return mocked new persisted asset
-}))
+}
+
+/**
+ * Set up the route on the router
+ * 
+ * The Murryer extracts the body, invokes the controller
+ * providing the extract values, and responds to the client with JSON
+ * from the controller
+ */
+router.post('/api/assets', someOtherMiddleware(), postReqJsonResMurryer(controller))
 ```
 
-In the example above, notice that the controller function has **no** specific logic for handling request objects, or responding to the client, or handling errors. It just returns a `Promise`. You've already set all of that handling up in your `Murryer`! This controller is now encapsulated and kept separate from the web-server library. This makes it **very** easy to unit test without mocking objects for that particular framework that you use.
+In the example above, notice that the controller function has **no** specific logic for handling request objects, or responding to the client, or handling errors. You've already set up all of that route handling in your `Murryer`! The controller is just passed the extracted values as arguements and then it just returns a `Promise`. This controller is now encapsulated and kept separate from the web-server library. It is **much** easier to unit test and does not require mocking objects for that whatever web-server library you are using.
 
-Decide you want to a different web-server library, say `Restify`, instead of `ExpressJS`? No problem! Just adjust the `Murryer` to extract and repsond w.r.t the new library and your controllers and tests **just work**!
+Decide you want to use a different web-server library, say `Restify`, instead of `ExpressJS`? No problem! Just adjust the `Murryer` to extract and repsond w.r.t the new library and your controllers and tests **just work**!
 
 Decide you want different error handling? Just update the one function and **boom**. It's updated for all routes using that `Murryer`.
 
@@ -159,5 +173,5 @@ Submit an issue or a PR
 MIT
 
 ## Name
-"Marshall + Curry" => "Murry". `Murryer` also rhymes with `Courier` which _sort of_ aligns with the use case for `murry` :)
+"marshall + curry" => "murry". `Murryer` also rhymes with `Courier` which _sort of_ aligns with the use case for `murry` :)
 
