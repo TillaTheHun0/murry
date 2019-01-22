@@ -5,19 +5,20 @@
 
 `murry` keeps your controller separate from your routing logic via curried marshalling. This keeps your controller logic separate from whatever framework you choose to handle web-server routing while currying makes it highly composable and prevents duplicated code
 
-## Table of Contents
+## Table of Contents <a name="toc"></a>
+
 - [Installation](#installation)
-- [Currying?](#currying?)
+- [Currying?](#currying)
 - [Marshalling?](#marshalling)
-- [How It Works](#howitworks)
+- [How It Works](#how-it-works)
 - [Usage](#usage)
-- [With Ramda](#withramda)
+- [With Ramda](#with-ramda)
 - [TODO](#todo)
 - [Contribute](#contribute)
 - [License](#license)
 - [Name](#name)
 
-## Installation
+## Installation <a name="installation"></a>
 
 npm
 ```bash
@@ -29,11 +30,11 @@ yarn
 $ yarn add murry
 ```
 
-## Currying?
+## Currying? <a name="currying"></a>
 
 Currying is a technique used in functional programming for buiilding composable reusuable functions. Instead of repeating it, read a good post about currying [here](https://www.sitepoint.com/currying-in-functional-javascript/)
 
-## Marshalling?
+## Marshalling? <a name="marshalling"></a>
 
 From WikiPedia:
 ```
@@ -44,7 +45,7 @@ The term Mashalling is most commonly used when when talking about objects in mem
 
 This separates any web-server library specifics from your business logic. This means **controllers are _much_ easier to test**, as they do not require mocking objects created by an external web-server library. It also promotes separation of concerns, as code for extracting data from incoming requests, and responding to those requests is separate from the "meat" of your program.
 
-## How It Works
+## How It Works <a name="how-it-works"></a>
 
 At the root of `Murry` is a curried function like so:
 
@@ -73,7 +74,7 @@ Lets go through each argument
 
 `Murry` has a _tiny_ footprint; It's just a couple functions and some sensisble prebuilt default extractors, responders, and errorHandlers for `ExpressJS`
 
-## Usage
+## Usage <a name="usage"></a>
 
 ```javascript
 
@@ -142,7 +143,7 @@ Need very specific handling for a route? Just compose a `murryer` from scratch w
 
 The high composability of `murry` allows you to easily write reusable implementation, minimize changes during refactors, and keep your logic **separate** from the web-server library
 
-## With Ramda
+## With Ramda <a name="with-ramda"></a>
 
 Ramda is a great library for embracing functional programming. For example, all Ramda functions are automatically curried. One great tool Ramda provides is the `__` function. `__` can be used as a placeholder for functions being passed to a curry function. Say you needed a `murryer` that used an extractor and responder, but needed to be composable to have different error handling? No problem:
 
@@ -159,19 +160,19 @@ const defaultMurryer = curryer(__, extractor, responder) // placehold the errorH
 
 Then you can pass in the errorHandler later. This also means arguments passed to the curried function can be provided out of order!
 
-## TODO
+## TODO <a name="todo"></a>
 
 - Plugin system for web-server libraries to make `murry` work out of the box with less boilerplate
 - Better docs
 - Library specific tests ie. Express, Hapi, Restify, etc.
 
-## Contribute
+## Contribute <a name="contribute"></a>
 
 Submit an issue or a PR
 
-## License
+## License <a name="license"></a>
 MIT
 
-## Name
+## Name <a name="name"></a>
 "marshall + curry" => "murry". `Murryer` also rhymes with `Courier` which _sort of_ aligns with the use case for `murry` :)
 
