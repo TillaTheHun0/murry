@@ -36,9 +36,8 @@ Currying is a technique used in functional programming for buiilding composable 
 ## Marshalling?
 
 From WikiPedia:
-```
-In computer science, marshalling or marshaling is the process of transforming the memory representation of an object to a data format suitable for storage or transmission,and it is typically used when data must be moved between different parts of a computer program or from one program to another...It simplifies complex communication, using composite objects in order to communicate...
-```
+
+>In computer science, marshalling or marshaling is the process of transforming the memory representation of an object to a data format suitable for storage or transmission,and it is typically used when data must be moved between different parts of a computer program or from one program to another...It simplifies complex communication, using composite objects in order to communicate...
 
 The term Mashalling is most commonly used when when talking about objects in memory or serialization for sending objects across a network. `Murry` _technically_ isn't marshalling, but from a high level sense it is; it is taking the shape of some objects, which the programmer cannot control and is external to his or her code, and turns it into a state that our code can work with.
 
