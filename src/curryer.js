@@ -1,5 +1,5 @@
 
-import { curry } from 'ramda'
+import curry from 'ramda/src/curry'
 
 export const curryer = curry(
   (errorHandler, extractor, responder, controller) =>
