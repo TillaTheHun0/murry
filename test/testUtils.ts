@@ -5,6 +5,11 @@ export const wrapper = (caller, expecter) => {
 }
 
 export class MockRes {
+  jsonCalled: boolean
+  sendStatusCalled: boolean
+  renderCalled: boolean
+  statusCalled: boolean
+
   constructor () {
     this.sendStatusCalled = false
     this.jsonCalled = false
@@ -34,7 +39,11 @@ export class MockRes {
 }
 
 export class MockReq {
-  constructor (body, params, query) {
+  body: any
+  params: any
+  query: any
+
+  constructor (body?, params?, query?) {
     this.body = body
     this.params = params
     this.query = query

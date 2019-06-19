@@ -31,7 +31,7 @@ describe('curryer', () => {
   it('should execute all functions and return the controller data', async () => {
     const data = { foo: 'bar' }
     const mockedRes = new MockRes()
-    const murryer = curryer(passthroughHandler, bodyExtractor, jsonRes, () => data.foo)
+    const murryer = curryer(passthroughHandler, bodyExtractor, jsonRes, async () => data.foo)
 
     const res = await murryer(new MockReq(data), mockedRes)
 
@@ -53,19 +53,14 @@ describe('curryer', () => {
     expect(errorHandlerCalled).to.be.equal(true)
   })
 
-  it('should throw an error when the extractor does not return an array', async () => {
-    let errorHandlerCalled = false
-    let controllerCalled = false
-    const murryer = curryer(passthroughHandler, () => 1, jsonRes, () => {
-      controllerCalled = true
-    })
+  it('should handle transforming a non-array extracted payload into an array', async () => {
+    const data = { foo: 'bar' }
+    const mockedRes = new MockRes()
+    const murryer = curryer(passthroughHandler, () => "not an array", jsonRes, async () => data.foo)
 
-    const res = await murryer(new MockReq(), new MockRes(), () => {
-      errorHandlerCalled = true
-    })
+    const res = await murryer(new MockReq(data), mockedRes)
 
-    expect(res).to.be.equal(undefined)
-    expect(errorHandlerCalled).to.be.equal(true)
-    expect(controllerCalled).to.be.equal(false)
+    expect(res).to.be.equal(data.foo)
+    expect(mockedRes.jsonCalled).to.be.equal(true)
   })
 })

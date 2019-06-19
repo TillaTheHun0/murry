@@ -22,7 +22,7 @@ describe('responder', () => {
     let mocked = new MockRes()
 
     let call = () =>
-      jsonStatusRes(200, { foo: 'bar' })(null, mocked)
+      jsonStatusRes({ foo: 'bar' }, 200)(null, mocked)
 
     wrapper(call, () => {
       expect(mocked.jsonCalled).to.equal(true)
@@ -34,7 +34,7 @@ describe('responder', () => {
     let mocked = new MockRes()
 
     let call = () =>
-      htmlRes('sweet-view.html', { foo: 'bar' })(null, mocked)
+      htmlRes({ foo: 'bar' }, 'sweet-view.html')(null, mocked)
 
     wrapper(call, () => {
       expect(mocked.renderCalled).to.equal(true)

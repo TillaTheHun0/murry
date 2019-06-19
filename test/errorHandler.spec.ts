@@ -1,8 +1,9 @@
 
+import { expect } from 'chai'
+
 import '../src'
 
 import { passthroughHandler } from '../src/errorHandler'
-import { expect } from 'chai'
 
 describe('errorHandler', () => {
   it('should call next()', () => {
@@ -11,7 +12,7 @@ describe('errorHandler', () => {
       nextCalled = true
     }
 
-    passthroughHandler()(...[null, null, next])
+    passthroughHandler(new Error(''))(...[null, null, next])
     expect(nextCalled).to.equal(true)
   })
 })
