@@ -1,6 +1,15 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [1.1.0](https://github.com/TillaTheHun0/murry/compare/v1.0.0...v1.1.0) (2019-06-19)
+
+
+### Build System
+
+* fix repo name ([c317e59](https://github.com/TillaTheHun0/murry/commit/c317e59))
+
+
 
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/TillaTheHun0/murry/compare/v0.1.2...v1.0.0) (2019-02-05)
