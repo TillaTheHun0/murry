@@ -36,7 +36,7 @@
     "rimraf": "^3.0.0",
     "standard": "^13.1.0",
     "standard-version": "^7.0.0",
-    "ts-mocha": "^6.0.0",
+    "ts-mocha": "^7.0.0",
     "tslint": "^5.18.0",
     "tslint-config-standard": "^9.0.0",
     "typescript": "^3.5.2"
